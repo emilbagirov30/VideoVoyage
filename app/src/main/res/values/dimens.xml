@@ -2,7 +2,7 @@
 <resources>
 
     <dimen name="recycler_view_video_margin">5dp</dimen>
-    <dimen name="video_frame_height">150dp</dimen>
+    <dimen name="video_frame_height">200dp</dimen>
     <dimen name="video_duration_padding">5dp</dimen>
     <dimen name="video_duration_margin">5dp</dimen>
     <dimen name="video_duration_text_size">15sp</dimen>
