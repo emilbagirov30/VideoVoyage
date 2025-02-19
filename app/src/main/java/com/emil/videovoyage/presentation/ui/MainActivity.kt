@@ -28,6 +28,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         val videoAdapter = VideoAdapter(context = this)
+        binding.swipeRefreshLayout.setOnRefreshListener {
+           getVideo()
+        }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 videoViewModel.videoList.collect { video ->
@@ -53,6 +56,8 @@ class MainActivity : AppCompatActivity() {
         videoViewModel.getVideoList(onSuccess = {
             binding.shimmer.stopShimmer()
             binding.shimmer.hide()
-                                                }, onError = {})
+            binding.swipeRefreshLayout.isRefreshing = false }, onError = {
+            binding.swipeRefreshLayout.isRefreshing = false
+        })
     }
 }

@@ -36,6 +36,11 @@ class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapt
                     .frame(0)
                     .into(frameImageView)
             }
+
+
+            binding.root.setOnClickListener {
+
+            }
         }
     }
 
