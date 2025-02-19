@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emil.domain.model.Video
 import com.emil.videovoyage.databinding.RvItemVideoBinding
+import com.emil.videovoyage.util.anim
 import com.emil.videovoyage.util.toVideoDuration
 
 class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapter.VideoViewHolder>(HotelDiffCallback()) {
@@ -27,6 +28,9 @@ class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapt
 
     inner class VideoViewHolder(private val binding: RvItemVideoBinding) : RecyclerView.ViewHolder(binding.root) {
 
+        private fun clickVideo (){
+            binding.playVideoButton.anim()
+        }
         fun bind(video: Video) {
             binding.apply {
                 videoNameTextView.text = video.name
@@ -38,10 +42,10 @@ class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapt
             }
 
 
-            binding.root.setOnClickListener {
-
-            }
+            binding.root.setOnClickListener { clickVideo() }
+            binding.playVideoButton.setOnClickListener { clickVideo() }
         }
+
     }
 
     class HotelDiffCallback : DiffUtil.ItemCallback<Video>() {

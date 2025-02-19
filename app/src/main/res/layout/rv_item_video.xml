@@ -23,6 +23,21 @@
     </ImageView>
 
 
+
+
+    <ImageButton
+        android:id="@+id/playVideoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_play"
+        android:contentDescription="@string/content_description_video"
+        app:layout_constraintEnd_toEndOf="@id/frameImageView"
+        app:layout_constraintStart_toStartOf="@id/frameImageView"
+        app:layout_constraintTop_toTopOf="@id/frameImageView"
+        app:layout_constraintBottom_toBottomOf="@id/frameImageView">
+    </ImageButton>
+
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/videoDurationTextView"
         android:layout_width="wrap_content"
