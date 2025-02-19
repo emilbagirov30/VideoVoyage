@@ -34,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -58,5 +61,6 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer-dash:1.5.1")
     implementation("androidx.media3:media3-ui:1.5.1")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
 
 }
