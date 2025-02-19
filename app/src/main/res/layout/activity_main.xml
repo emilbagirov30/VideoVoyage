@@ -20,4 +20,29 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:shimmer_colored="true"
+        android:layout_margin="@dimen/recycler_view_video_margin"
+        app:shimmer_base_color="@color/soft_gray"
+        app:shimmer_highlight_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <include layout="@layout/rv_item_video" />
+            <include layout="@layout/rv_item_video" />
+            <include layout="@layout/rv_item_video" />
+            <include layout="@layout/rv_item_video" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

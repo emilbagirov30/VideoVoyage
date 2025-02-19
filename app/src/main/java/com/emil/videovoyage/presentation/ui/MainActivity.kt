@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.emil.videovoyage.adapter.VideoAdapter
 import com.emil.videovoyage.databinding.ActivityMainBinding
 import com.emil.videovoyage.presentation.viewmodel.VideoViewModel
+import com.emil.videovoyage.util.VideoVoyage
+import com.emil.videovoyage.util.hide
+import com.emil.videovoyage.util.show
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -38,10 +41,18 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.shimmer.run {
+            show()
+            setShimmer(VideoVoyage.CUSTOM_SHIMMER)
+            startShimmer()
+        }
                    getVideo()
 
     }
     private fun getVideo () {
-        videoViewModel.getVideoList(onSuccess = {}, onError = {})
+        videoViewModel.getVideoList(onSuccess = {
+            binding.shimmer.stopShimmer()
+            binding.shimmer.hide()
+                                                }, onError = {})
     }
 }

@@ -3,6 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/video_item_margin_bottom"
+    android:background="@color/soft_gray"
+    android:elevation="@dimen/video_elevation"
+    android:foreground="?attr/selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 

@@ -5,4 +5,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#777676</color>
     <color name="video_duration_background">#8C353535</color>
+    <color name="soft_gray">#F6F6F6</color>
 </resources>
