@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/video_item_margin_bottom"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <ImageView
+        android:id="@+id/frameImageView"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/video_frame_height"
+        android:contentDescription="@string/content_description_video"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </ImageView>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/videoDurationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/frameImageView"
+        app:layout_constraintBottom_toBottomOf="@id/frameImageView"
+        style="@style/TextItemStyle"
+        android:background="@drawable/rounded_video_duration_background"
+        android:textSize="@dimen/video_duration_text_size"
+        android:textColor="@color/white"
+        android:padding="@dimen/video_duration_padding"
+        android:layout_margin="@dimen/video_duration_margin">
+    </com.google.android.material.textview.MaterialTextView>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/videoNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/frameImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/TextItemStyle"
+        android:gravity="center"
+        android:textSize="@dimen/video_name_text_size"
+        android:textColor="@color/black">
+    </com.google.android.material.textview.MaterialTextView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

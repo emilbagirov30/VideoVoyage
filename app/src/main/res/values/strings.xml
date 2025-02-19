@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">VideoVoyage</string>
+    <string name="content_description_video">Видео</string>
 </resources>
