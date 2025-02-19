@@ -41,8 +41,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    val koin_android_version = "4.0.0"
-    implementation("io.insert-koin:koin-android:$koin_android_version")
     kapt ("androidx.room:room-compiler:2.6.1")
     implementation ("androidx.room:room-ktx:2.6.1")
     implementation ("com.squareup.retrofit2:retrofit:2.11.0")
