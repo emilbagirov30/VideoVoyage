@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">VideoVoyage</string>
     <string name="content_description_video">Видео</string>
+    <string name="error_content_description">Ошибка</string>
+    <string name="error_loading_data">Произошла ошибка при загрузке данных</string>
+    <string name="repeat">Повторить</string>
+    <string name="no_internet_connection">Нет подключения к интернету</string>
 </resources>

@@ -19,4 +19,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="RoundedDialog" parent="Theme.Material3.Light.Dialog">
+        <item name="android:windowBackground">@drawable/rounded_dialog</item>
+    </style>
 </resources>
