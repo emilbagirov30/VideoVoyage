@@ -1,12 +1,14 @@
 package com.emil.data.model
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 import com.emil.domain.model.VideoCache
 
 
-@Entity(tableName = "video")
+@Entity(tableName = "video",
+    indices = [Index(value = ["name"], unique = true)])
 data class VideoLocalDb (@PrimaryKey(autoGenerate = true) val id:Long,
                          val name:String,
                          val duration:Int)

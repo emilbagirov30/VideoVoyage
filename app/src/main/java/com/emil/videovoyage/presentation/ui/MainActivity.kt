@@ -1,5 +1,6 @@
 package com.emil.videovoyage.presentation.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -14,6 +15,7 @@ import com.emil.videovoyage.util.VideoVoyage
 import com.emil.videovoyage.util.hide
 import com.emil.videovoyage.util.isInternetAvailable
 import com.emil.videovoyage.util.show
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -47,26 +49,26 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun getVideo () {
-        if (isInternetAvailable()){
-            binding.shimmer.run {
-                show()
-                setShimmer(VideoVoyage.CUSTOM_SHIMMER)
-                startShimmer()
-            }
-            videoViewModel.getVideoList(onSuccess = {
-                binding.shimmer.stopShimmer()
-                binding.shimmer.hide()
-                binding.swipeRefreshLayout.isRefreshing = false }, onError = {
-                binding.shimmer.stopShimmer()
-                binding.swipeRefreshLayout.isRefreshing = false
-                showErrorDialog(R.string.error_loading_data)
-
-            })
-
-        } else {
-            binding.swipeRefreshLayout.isRefreshing = false
-            showErrorDialog(R.string.no_internet_connection)
+        binding.shimmer.run {
+            show()
+            setShimmer(VideoVoyage.CUSTOM_SHIMMER)
+            startShimmer()
         }
+        videoViewModel.getVideoList(onSuccess = {
+            binding.shimmer.stopShimmer()
+            binding.shimmer.hide()
+            binding.swipeRefreshLayout.isRefreshing = false }, onError = {
+            binding.shimmer.stopShimmer()
+            binding.shimmer.hide()
+            binding.swipeRefreshLayout.isRefreshing = false
+            if (!isInternetAvailable())
+                showErrorMessage(R.string.no_internet_connection)
+             else showErrorMessage(R.string.error_loading_data)
+        })
+
+
+
+
 
 
     }
@@ -77,6 +79,24 @@ class MainActivity : AppCompatActivity() {
         }
         dialog.show(supportFragmentManager, "ErrorDialog")
     }
+
+
+    private fun showErrorMessage(stringRes: Int) {
+        binding.root.let { rootView ->
+            Snackbar.make(rootView, getString(stringRes), Snackbar.LENGTH_INDEFINITE).apply {
+                setBackgroundTint(Color.WHITE)
+                setTextColor(Color.GRAY)
+                setAction(getString(R.string.repeat)) {
+                    getVideo()
+                }
+                setActionTextColor(Color.BLUE)
+                show()
+            }
+        }
+    }
+
+
+
     override fun onResume() {
         super.onResume()
         if (videoViewModel.videoList.value.isNullOrEmpty()) {
