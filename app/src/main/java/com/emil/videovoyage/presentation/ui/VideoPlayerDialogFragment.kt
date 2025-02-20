@@ -22,8 +22,7 @@ import com.emil.videovoyage.databinding.DialogPlayerBinding
 
 class VideoPlayerDialogFragment : DialogFragment() {
 
-    private var _binding: DialogPlayerBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: DialogPlayerBinding
     private var videoUrl: String? = null
     private var name: String? = null
     private val exoPlayer: ExoPlayer by lazy {
@@ -58,7 +57,7 @@ class VideoPlayerDialogFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = DialogPlayerBinding.inflate(inflater)
+        binding = DialogPlayerBinding.inflate(inflater)
         return binding.root
     }
 
@@ -135,6 +134,5 @@ class VideoPlayerDialogFragment : DialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         exoPlayer.release()
-        _binding = null
     }
 }

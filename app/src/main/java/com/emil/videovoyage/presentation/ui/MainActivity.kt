@@ -19,13 +19,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityMainBinding
     private val videoViewModel by viewModel<VideoViewModel> ()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.shimmer.hide()
         val videoAdapter = VideoAdapter(context = this)
@@ -84,10 +83,7 @@ class MainActivity : AppCompatActivity() {
             getVideo()
         }
     }
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
+
 
 }
 
