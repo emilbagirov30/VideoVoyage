@@ -2,7 +2,6 @@ package com.emil.videovoyage.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -29,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.shimmer.hide()
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         val videoAdapter = VideoAdapter(context = this)
         binding.videoRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.videoRecyclerView.adapter = videoAdapter

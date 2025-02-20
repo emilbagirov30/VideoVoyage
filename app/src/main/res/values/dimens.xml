@@ -10,5 +10,6 @@
     <dimen name="video_elevation">1dp</dimen>
     <dimen name="video_item_margin_bottom">10dp</dimen>
     <dimen name="video_name_text_padding">5dp</dimen>
+    <dimen name="video_fullscreen_button_margin">5dp</dimen>
 
 </resources>

@@ -6,12 +6,14 @@ import android.net.Uri
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emil.domain.model.Video
 import com.emil.videovoyage.databinding.RvItemVideoBinding
+import com.emil.videovoyage.presentation.ui.VideoPlayerDialogFragment
 import com.emil.videovoyage.util.anim
 import com.emil.videovoyage.util.toVideoDuration
 
@@ -28,10 +30,13 @@ class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapt
 
     inner class VideoViewHolder(private val binding: RvItemVideoBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        private fun clickVideo (){
-            binding.playVideoButton.anim()
-        }
+
         fun bind(video: Video) {
+             fun clickVideo (){
+                binding.playVideoButton.anim()
+                val playerDialog = VideoPlayerDialogFragment.newInstance(url = video.url, name = video.name)
+                playerDialog.show((context as AppCompatActivity).supportFragmentManager, "VideoPlayerDialogFragment")
+            }
             binding.apply {
                 videoNameTextView.text = video.name
                 videoDurationTextView.text = video.duration.toVideoDuration()
