@@ -7,7 +7,7 @@ import org.koin.dsl.module
 val appModule = module {
 
     viewModel <VideoViewModel> {
-        VideoViewModel(getVideoUseCase = get())
+        VideoViewModel(getVideoUseCase = get(), cacheVideoUseCase = get(), getCacheVideoUseCase = get())
     }
 
 }

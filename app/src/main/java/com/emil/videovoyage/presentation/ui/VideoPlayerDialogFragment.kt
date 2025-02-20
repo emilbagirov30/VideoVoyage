@@ -33,7 +33,7 @@ class VideoPlayerDialogFragment : DialogFragment() {
     private var playWhenReady: Boolean = true
 
     companion object {
-        fun newInstance(url: String, name: String): VideoPlayerDialogFragment {
+        fun newInstance(url: String?, name: String): VideoPlayerDialogFragment {
             val fragment = VideoPlayerDialogFragment()
             val args = Bundle()
             args.putString("VIDEO_URL", url)

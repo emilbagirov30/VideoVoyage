@@ -1,6 +1,6 @@
 package com.emil.videovoyage.adapter
 
-import android.annotation.SuppressLint
+
 import android.content.Context
 import android.net.Uri
 
@@ -33,17 +33,25 @@ class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapt
 
         fun bind(video: Video) {
              fun clickVideo (){
-                binding.playVideoButton.anim()
-                val playerDialog = VideoPlayerDialogFragment.newInstance(url = video.url, name = video.name)
-                playerDialog.show((context as AppCompatActivity).supportFragmentManager, "VideoPlayerDialogFragment")
+                 if (video.url != null) {
+                     binding.playVideoButton.anim()
+                     val playerDialog =
+                         VideoPlayerDialogFragment.newInstance(url = video.url, name = video.name)
+                     playerDialog.show(
+                         (context as AppCompatActivity).supportFragmentManager,
+                         "VideoPlayerDialogFragment"
+                     )
+                 }
             }
             binding.apply {
                 videoNameTextView.text = video.name
                 videoDurationTextView.text = video.duration.toVideoDuration()
+                video.url?.let {
                 Glide.with(context)
                     .load(Uri.parse(video.url))
                     .frame(0)
                     .into(frameImageView)
+               }
             }
 
 
