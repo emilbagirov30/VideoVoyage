@@ -19,7 +19,7 @@ fun VideoLocalDb.toDomainModel():VideoCache{
 
 
 fun List<VideoLocalDb>.toDomainModelList():List<VideoCache>{
-    return  this.map {
+    return this.map {
         it.toDomainModel()
     }
 }

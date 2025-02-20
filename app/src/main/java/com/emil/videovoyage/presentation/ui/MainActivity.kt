@@ -67,10 +67,6 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-
-
-
-
     }
     private fun showErrorDialog(stringRes:Int) {
         val dialog = ErrorDialogFragment.newInstance(

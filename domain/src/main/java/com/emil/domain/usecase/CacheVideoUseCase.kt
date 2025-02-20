@@ -6,6 +6,6 @@ import com.emil.domain.repository.CacheRepository
 
 class CacheVideoUseCase (private val cacheRepository: CacheRepository) {
     suspend fun execute (video: VideoCache){
-            cacheRepository.cacheVideo(video)
+        cacheRepository.cacheVideo(video)
     }
 }

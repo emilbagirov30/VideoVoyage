@@ -3,11 +3,10 @@ package com.emil.videovoyage.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emil.domain.model.Video
-import com.emil.domain.model.VideoCache
 import com.emil.domain.model.toCacheModel
 import com.emil.domain.model.toResponseModelList
 import com.emil.domain.usecase.CacheVideoUseCase
-import com.emil.domain.usecase.GetCacheVideoUseCase
+import com.emil.domain.usecase.GetCachedVideosUseCase
 import com.emil.domain.usecase.GetVideoUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class VideoViewModel (private val getVideoUseCase: GetVideoUseCase,
                       private val cacheVideoUseCase: CacheVideoUseCase,
-                      private val getCacheVideoUseCase: GetCacheVideoUseCase) : ViewModel () {
+                      private val getCachedVideosUseCase: GetCachedVideosUseCase) : ViewModel () {
 
     private val _videoList = MutableStateFlow<List<Video>?>(null)
     val videoList: StateFlow<List<Video>?> = _videoList
@@ -48,7 +47,7 @@ class VideoViewModel (private val getVideoUseCase: GetVideoUseCase,
 
    private fun getCacheVideo(){
        viewModelScope.launch {
-          val result = getCacheVideoUseCase.execute()
+          val result = getCachedVideosUseCase.execute()
            _videoList.value = result.toResponseModelList()
        }
    }
