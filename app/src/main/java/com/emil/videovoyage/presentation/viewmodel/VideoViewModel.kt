@@ -8,6 +8,7 @@ import com.emil.domain.model.toResponseModelList
 import com.emil.domain.usecase.CacheVideoUseCase
 import com.emil.domain.usecase.GetCachedVideosUseCase
 import com.emil.domain.usecase.GetVideoUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,40 +20,40 @@ class VideoViewModel (private val getVideoUseCase: GetVideoUseCase,
     private val _videoList = MutableStateFlow<List<Video>?>(null)
     val videoList: StateFlow<List<Video>?> = _videoList
 
-    fun getVideoList(onSuccess:() -> Unit, onError:() -> Unit) {
+    fun getVideoList(onSuccess: () -> Unit, onError: () -> Unit) {
         viewModelScope.launch {
-            try {
-                val response = getVideoUseCase.execute()
-                if (response != null) {
+            runCatching { getVideoUseCase.execute() }.onSuccess { response ->
+                if (response.isNullOrEmpty()) handleFailure(onError)
+                 else {
                     _videoList.value = response
                     insertVideoList(response)
                     onSuccess()
-                } else {
-                    onError()
-                    getCacheVideo()
                 }
-            }catch (e:Exception){
-                onError()
-                getCacheVideo()
+            }.onFailure {
+                handleFailure(onError)
             }
         }
     }
 
+    private fun handleFailure(onError: () -> Unit) {
+        onError()
+        getCachedVideos()
+    }
 
-    private suspend fun insertVideoList(videos: List<Video>) {
+    private fun insertVideoList(videos: List<Video>) {
+        viewModelScope.launch(Dispatchers.IO) {
         videos.forEach { video ->
             cacheVideoUseCase.execute(video.toCacheModel())
+         }
         }
     }
 
-   private fun getCacheVideo(){
-       viewModelScope.launch {
+   private fun getCachedVideos(){
+       viewModelScope.launch(Dispatchers.IO ){
           val result = getCachedVideosUseCase.execute()
-           _videoList.value = result.toResponseModelList()
+           _videoList.emit(result.toResponseModelList())
        }
    }
-
-
 
 }
 

@@ -21,7 +21,6 @@ import com.emil.videovoyage.databinding.DialogPlayerBinding
 
 
 class VideoPlayerDialogFragment : DialogFragment() {
-
     private lateinit var binding: DialogPlayerBinding
     private var videoUrl: String? = null
     private var name: String? = null
@@ -32,12 +31,19 @@ class VideoPlayerDialogFragment : DialogFragment() {
     private var playbackState: Int = ExoPlayer.STATE_IDLE
     private var playWhenReady: Boolean = true
 
+
     companion object {
+        private const val ARG_VIDEO_URL = "VIDEO_URL"
+        private const val ARG_NAME = "NAME"
+        private const val ARG_PLAYBACK_POSITION = "PLAYBACK_POSITION"
+        private const val ARG_PLAYBACK_STATE = "PLAYBACK_STATE"
+        private const val ARG_PLAY_WHEN_READY = "PLAY_WHEN_READY"
+
         fun newInstance(url: String?, name: String): VideoPlayerDialogFragment {
             val fragment = VideoPlayerDialogFragment()
             val args = Bundle()
-            args.putString("VIDEO_URL", url)
-            args.putString("NAME", name)
+            args.putString(ARG_VIDEO_URL, url)
+            args.putString(ARG_NAME, name)
             fragment.arguments = args
             return fragment
         }
@@ -45,12 +51,12 @@ class VideoPlayerDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        videoUrl = arguments?.getString("VIDEO_URL")
-        name = arguments?.getString("NAME")
+        videoUrl = arguments?.getString(ARG_VIDEO_URL)
+        name = arguments?.getString(ARG_NAME)
         savedInstanceState?.let {
-            playbackPosition = it.getLong("PLAYBACK_POSITION", 0)
-            playbackState = it.getInt("PLAYBACK_STATE", ExoPlayer.STATE_IDLE)
-            playWhenReady = it.getBoolean("PLAY_WHEN_READY", true)
+            playbackPosition = it.getLong(ARG_PLAYBACK_POSITION, 0)
+            playbackState = it.getInt(ARG_PLAYBACK_STATE, ExoPlayer.STATE_IDLE)
+            playWhenReady = it.getBoolean(ARG_PLAY_WHEN_READY, true)
         }
     }
 
@@ -97,9 +103,9 @@ class VideoPlayerDialogFragment : DialogFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putLong("PLAYBACK_POSITION", exoPlayer.currentPosition)
-        outState.putInt("PLAYBACK_STATE", exoPlayer.playbackState)
-        outState.putBoolean("PLAY_WHEN_READY", exoPlayer.playWhenReady)
+        outState.putLong(ARG_PLAYBACK_POSITION, exoPlayer.currentPosition)
+        outState.putInt(ARG_PLAYBACK_STATE, exoPlayer.playbackState)
+        outState.putBoolean(ARG_PLAY_WHEN_READY, exoPlayer.playWhenReady)
     }
 
     private fun toggleFullscreen() {
@@ -131,8 +137,20 @@ class VideoPlayerDialogFragment : DialogFragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        exoPlayer.playWhenReady = false
+        exoPlayer.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        exoPlayer.playWhenReady = playWhenReady
+    }
+
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
+        exoPlayer.stop()
         exoPlayer.release()
     }
 }

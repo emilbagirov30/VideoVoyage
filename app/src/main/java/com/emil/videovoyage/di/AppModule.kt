@@ -7,7 +7,7 @@ import org.koin.dsl.module
 val appModule = module {
 
     viewModel <VideoViewModel> {
-        added tests for use cases and viewmodel        VideoViewModel(getVideoUseCase = get(), cacheVideoUseCase = get(), getCachedVideosUseCase = get())
+       VideoViewModel(getVideoUseCase = get(), cacheVideoUseCase = get(), getCachedVideosUseCase = get())
     }
 
 }

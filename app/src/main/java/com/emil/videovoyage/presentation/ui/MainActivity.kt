@@ -23,18 +23,23 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val videoViewModel by viewModel<VideoViewModel> ()
-
+    private val videoAdapter:VideoAdapter by lazy{
+        VideoAdapter(context = this)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.shimmer.hide()
-        val videoAdapter = VideoAdapter(context = this)
         binding.videoRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.videoRecyclerView.adapter = videoAdapter
         binding.swipeRefreshLayout.setOnRefreshListener {
            getVideo()
         }
+        observeVideoList()
+    }
+
+    private fun observeVideoList() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 videoViewModel.videoList.collect { video ->
@@ -46,36 +51,31 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
+
     private fun getVideo () {
-        binding.shimmer.run {
-            show()
-            setShimmer(VideoVoyage.CUSTOM_SHIMMER)
-            startShimmer()
-        }
-        videoViewModel.getVideoList(onSuccess = {
-            binding.shimmer.stopShimmer()
-            binding.shimmer.hide()
-            binding.swipeRefreshLayout.isRefreshing = false }, onError = {
-            binding.shimmer.stopShimmer()
-            binding.shimmer.hide()
-            binding.swipeRefreshLayout.isRefreshing = false
-            if (!isInternetAvailable())
-                showErrorMessage(R.string.no_internet_connection)
-             else showErrorMessage(R.string.error_loading_data)
+        showLoading(true)
+        videoViewModel.getVideoList(onSuccess = { showLoading(false) }, onError = {
+            showLoading(false)
+            showErrorMessage(if (!isInternetAvailable()) R.string.no_internet_connection else R.string.error_loading_data)
         })
 
 
     }
-    private fun showErrorDialog(stringRes:Int) {
-        val dialog = ErrorDialogFragment.newInstance(
-            getString(stringRes)) {
-            getVideo()
-        }
-        dialog.show(supportFragmentManager, "ErrorDialog")
-    }
 
+    private fun showLoading(show: Boolean) {
+        binding.shimmer.apply {
+            if (show) {
+                show()
+                setShimmer(VideoVoyage.CUSTOM_SHIMMER)
+                startShimmer()
+            } else {
+                stopShimmer()
+                hide()
+            }
+        }
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
 
     private fun showErrorMessage(stringRes: Int) {
         binding.root.let { rootView ->
@@ -92,7 +92,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     override fun onResume() {
         super.onResume()
         if (videoViewModel.videoList.value.isNullOrEmpty()) {
@@ -100,6 +99,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.videoRecyclerView.adapter = null
+    }
 }
 

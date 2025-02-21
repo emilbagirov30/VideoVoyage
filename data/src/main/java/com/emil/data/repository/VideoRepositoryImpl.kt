@@ -6,6 +6,7 @@ import com.emil.domain.model.Video
 import com.emil.domain.repository.VideoRepository
 
 class VideoRepositoryImpl : VideoRepository  {
+
     override suspend fun getVideo(): List<Video>? {
 
        val response = RetrofitInstance.apiService.getVideo()

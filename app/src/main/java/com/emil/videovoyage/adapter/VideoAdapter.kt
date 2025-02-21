@@ -3,7 +3,6 @@ package com.emil.videovoyage.adapter
 
 import android.content.Context
 import android.net.Uri
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -32,17 +31,15 @@ class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapt
 
 
         fun bind(video: Video) {
+
              fun clickVideo (){
                  if (video.url != null) {
                      binding.playVideoButton.anim()
-                     val playerDialog =
-                         VideoPlayerDialogFragment.newInstance(url = video.url, name = video.name)
-                     playerDialog.show(
-                         (context as AppCompatActivity).supportFragmentManager,
-                         "VideoPlayerDialogFragment"
-                     )
+                     val playerDialog = VideoPlayerDialogFragment.newInstance(url = video.url, name = video.name)
+                     playerDialog.show((context as AppCompatActivity).supportFragmentManager, "VideoPlayerDialogFragment")
                  }
             }
+
             binding.apply {
                 videoNameTextView.text = video.name
                 videoDurationTextView.text = video.duration.toVideoDuration()
@@ -54,11 +51,14 @@ class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapt
                }
             }
 
-
             binding.root.setOnClickListener { clickVideo() }
             binding.playVideoButton.setOnClickListener { clickVideo() }
         }
 
+    }
+
+    fun submitVideo(videoList: List<Video>) {
+        submitList(videoList)
     }
 
     class HotelDiffCallback : DiffUtil.ItemCallback<Video>() {
@@ -66,7 +66,4 @@ class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapt
         override fun areContentsTheSame(oldItem: Video, newItem: Video): Boolean = oldItem == newItem
     }
 
-    fun submitVideo(videoList: List<Video>) {
-        submitList(videoList)
-    }
 }
