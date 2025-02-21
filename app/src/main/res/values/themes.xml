@@ -22,7 +22,9 @@
         <item name="android:windowBackground">@drawable/rounded_dialog</item>
     </style>
 
-
+    <style name="SplashScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
     <style name="FullScreenDialog" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
