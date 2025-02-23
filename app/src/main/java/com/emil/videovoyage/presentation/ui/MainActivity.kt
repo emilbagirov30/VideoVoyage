@@ -2,6 +2,7 @@ package com.emil.videovoyage.presentation.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         binding.swipeRefreshLayout.isRefreshing = false
     }
 
-    private fun showErrorMessage(stringRes: Int) {
+    private fun showErrorMessage(@StringRes stringRes: Int) {
         binding.root.let { rootView ->
             Snackbar.make(rootView, getString(stringRes), Snackbar.LENGTH_INDEFINITE).apply {
                 setBackgroundTint(Color.WHITE)

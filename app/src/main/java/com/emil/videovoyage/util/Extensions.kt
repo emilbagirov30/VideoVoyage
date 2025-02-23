@@ -1,7 +1,6 @@
 package com.emil.videovoyage.util
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
+
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -28,26 +27,6 @@ fun View.hide () {
 fun View.show () {
     this.visibility = View.VISIBLE
 }
-
-fun View.anim() {
-    fun createScaleAnimator(scaleXStart: Float, scaleXEnd: Float, scaleYStart: Float, scaleYEnd: Float): AnimatorSet {
-        val scaleX = ObjectAnimator.ofFloat(this, View.SCALE_X, scaleXStart, scaleXEnd)
-        val scaleY = ObjectAnimator.ofFloat(this, View.SCALE_Y, scaleYStart, scaleYEnd)
-        scaleX.duration = 200
-        scaleY.duration = 200
-        val animatorSet = AnimatorSet()
-        animatorSet.play(scaleX).with(scaleY)
-        return animatorSet
-    }
-
-    val scaleDown = createScaleAnimator(1f, 0.5f, 1f, 0.5f)
-    val scaleUp = createScaleAnimator(0.5f, 1f, 0.5f, 1f)
-
-    val animatorSet = AnimatorSet()
-    animatorSet.play(scaleDown).before(scaleUp)
-    animatorSet.start()
-}
-
 
 
 fun Context.isInternetAvailable(): Boolean {

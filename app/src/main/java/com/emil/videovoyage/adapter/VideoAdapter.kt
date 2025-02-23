@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.emil.domain.model.Video
 import com.emil.videovoyage.databinding.RvItemVideoBinding
 import com.emil.videovoyage.presentation.ui.VideoPlayerDialogFragment
-import com.emil.videovoyage.util.anim
 import com.emil.videovoyage.util.toVideoDuration
 
 class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapter.VideoViewHolder>(HotelDiffCallback()) {
@@ -34,7 +33,6 @@ class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapt
 
              fun clickVideo (){
                  if (video.url != null) {
-                     binding.playVideoButton.anim()
                      val playerDialog = VideoPlayerDialogFragment.newInstance(url = video.url, name = video.name)
                      playerDialog.show((context as AppCompatActivity).supportFragmentManager, "VideoPlayerDialogFragment")
                  }
