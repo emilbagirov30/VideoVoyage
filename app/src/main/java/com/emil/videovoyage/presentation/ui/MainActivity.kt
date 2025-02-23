@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emil.videovoyage.R
 import com.emil.videovoyage.adapter.VideoAdapter
@@ -26,19 +27,32 @@ class MainActivity : AppCompatActivity() {
     private val videoAdapter:VideoAdapter by lazy{
         VideoAdapter(context = this)
     }
+    companion object {
+        private const val SPAN_COUNT = 2
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.shimmer.hide()
-        binding.videoRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.videoRecyclerView.adapter = videoAdapter
+        setupRecyclerView()
         binding.swipeRefreshLayout.setOnRefreshListener {
-           getVideo()
+            if (isInternetAvailable()) {
+                getVideo()
+            } else showErrorMessage(R.string.no_internet_connection)
         }
         observeVideoList()
     }
+    private fun setupRecyclerView() {
+        val layoutManager = if (resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE) {
+            GridLayoutManager(this, SPAN_COUNT)
+        } else {
+            LinearLayoutManager(this)
+        }
 
+        binding.videoRecyclerView.layoutManager = layoutManager
+        binding.videoRecyclerView.adapter = videoAdapter
+    }
     private fun observeVideoList() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

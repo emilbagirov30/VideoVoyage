@@ -11,8 +11,6 @@
 
     <style name="Theme.VideoVoyage" parent="Base.Theme.VideoVoyage" />
 
-
-
     <style name="TextItemStyle" >
         <item name="android:fontFamily">@font/klukva</item>
         <item name="android:textStyle">bold</item>

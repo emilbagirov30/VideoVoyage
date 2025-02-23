@@ -1,5 +1,6 @@
 package com.emil.videovoyage.presentation.ui
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
@@ -108,13 +109,16 @@ class VideoPlayerDialogFragment : DialogFragment() {
         outState.putBoolean(ARG_PLAY_WHEN_READY, exoPlayer.playWhenReady)
     }
 
+
+    @SuppressLint("SourceLockedOrientationActivity")
     private fun toggleFullscreen() {
         val activity = requireActivity()
         val currentOrientation = resources.configuration.orientation
-        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT)
+        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        else
-            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        } else {
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
     }
 
     override fun getTheme() = R.style.FullScreenDialog
@@ -137,10 +141,11 @@ class VideoPlayerDialogFragment : DialogFragment() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        exoPlayer.playWhenReady = false
-        exoPlayer.pause()
+    override fun onStop() {
+        super.onStop()
+        if (!requireActivity().isChangingConfigurations) {
+            exoPlayer.playWhenReady = false
+        }
     }
 
     override fun onResume() {

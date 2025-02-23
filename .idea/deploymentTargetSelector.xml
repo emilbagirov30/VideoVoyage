@@ -4,19 +4,16 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-02-19T18:23:49.357871Z">
+        <DropdownSelection timestamp="2025-02-23T13:21:41.450299600Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\emil_\.android\avd\Pixel_7_Pro_API_35.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\emil_\.android\avd\Pixel_9_Pro_API_35.avd" />
             </handle>
           </Target>
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="MainActivity">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="SplashScreenActivity">
+      <SelectionState runConfigName="testVideoPlayerDialog_DisplaysCorrectVideoAndName()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
