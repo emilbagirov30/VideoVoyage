@@ -15,7 +15,7 @@ import com.emil.videovoyage.databinding.RvItemVideoBinding
 import com.emil.videovoyage.presentation.ui.VideoPlayerDialogFragment
 import com.emil.videovoyage.util.toVideoDuration
 
-class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapter.VideoViewHolder>(HotelDiffCallback()) {
+class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapter.VideoViewHolder>(VideoDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
         val binding = RvItemVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -59,7 +59,7 @@ class VideoAdapter (private val context: Context): ListAdapter<Video, VideoAdapt
         submitList(videoList)
     }
 
-    class HotelDiffCallback : DiffUtil.ItemCallback<Video>() {
+    class VideoDiffCallback : DiffUtil.ItemCallback<Video>() {
         override fun areItemsTheSame(oldItem: Video, newItem: Video): Boolean = oldItem.url == newItem.url
         override fun areContentsTheSame(oldItem: Video, newItem: Video): Boolean = oldItem == newItem
     }
