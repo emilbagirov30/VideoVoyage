@@ -39,7 +39,7 @@ class VideoPlayerDialogFragment : DialogFragment() {
         private const val ARG_PLAYBACK_POSITION = "PLAYBACK_POSITION"
         private const val ARG_PLAYBACK_STATE = "PLAYBACK_STATE"
         private const val ARG_PLAY_WHEN_READY = "PLAY_WHEN_READY"
-
+        private const val ORIENTATION_RESET_DELAY = 1000L
         fun newInstance(url: String?, name: String): VideoPlayerDialogFragment {
             val fragment = VideoPlayerDialogFragment()
             val args = Bundle()
@@ -119,6 +119,10 @@ class VideoPlayerDialogFragment : DialogFragment() {
         } else {
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
+
+        binding.playerView.postDelayed({
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        }, ORIENTATION_RESET_DELAY)
     }
 
     override fun getTheme() = R.style.FullScreenDialog
