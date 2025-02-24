@@ -40,7 +40,10 @@ class MainActivity : AppCompatActivity() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             if (isInternetAvailable()) {
                 getVideo()
-            } else showErrorMessage(R.string.no_internet_connection)
+            } else {
+                showErrorMessage(R.string.no_internet_connection)
+                showLoading(false)
+            }
         }
         observeVideoList()
     }
@@ -75,7 +78,6 @@ class MainActivity : AppCompatActivity() {
             showErrorMessage(if (!isInternetAvailable()) R.string.no_internet_connection else R.string.error_loading_data)
         })
 
-
     }
 
     private fun showLoading(show: Boolean) {
@@ -98,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                 setBackgroundTint(Color.WHITE)
                 setTextColor(Color.GRAY)
                 setAction(getString(R.string.repeat)) {
-                    getVideo()
+                      getVideo()
                 }
                 setActionTextColor(Color.BLUE)
                 show()
